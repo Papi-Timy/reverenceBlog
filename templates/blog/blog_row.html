@@ -1,0 +1,102 @@
+{% extends 'blog/base.html' %}{% load static %} {% load i18n %} 
+{% block head_title %}{% trans "Reverence | Post" %}{% endblock %}  {% block content %}
+<section class="py-5">
+  <div class="container py-4">
+    <div class="row">
+      <!-- Blog listing-->
+      <div class="col-lg-9 mb-5 mb-lg-0">
+        <div class="row">
+          {% for post in queryset %}
+
+          <div class="col-lg-6 mb-5">
+            <a
+              class="d-block post-trending mb-4"
+              href="{{post.get_absolute_url}}"
+              ><img class="img-fluid w-100" src="{{post.thumbnail.url}}" alt=""
+            /></a>
+            <ul class="list-inline">
+              <li class="list-inline-item mr-2">
+                {% for cat in post.categories.all %}
+
+                <a class="category-link font-weight-normal" href="#">{{cat}}</a>
+
+                {% endfor %}
+              </li>
+              <li class="list-inline-item mx-2">
+                <a class="text-uppercase meta-link font-weight-normal" href="#"
+                  >{{post.author.user.username}}</a
+                >
+              </li>
+              <li class="list-inline-item mx-2">
+                <a class="text-uppercase meta-link font-weight-normal" href="#"
+                  >{{post.timestamp|date:"d M Y"}}</a
+                >
+              </li>
+            </ul>
+            <h2 class="h3 mb-4">
+              <a class="d-block reset-anchor" href="{{post.get_absolute_url}}"
+                >{{post.title}}</a
+              >
+            </h2>
+            <p class="text-muted">{{post.description:truncatewords:30}}</p>
+            <a
+              class="btn btn-link p-0 read-more-btn"
+              href="{{post.get_absolute_url}}"
+              ><span>Read more</span><i class="fas fa-long-arrow-alt-right"></i
+            ></a>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- Pagination-->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            {% if queryset.has_previous %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="?{{ page_request_var}}={{queryset.previous_page_number}}"
+                >&laquo;</a
+              >
+            </li>
+            {% endif %} 
+
+	{% for i in paginator.page_range %} 
+		{% if queryset.number == i %}
+		    <li class="page-item active">
+		      <a class="page-link" href="?{{ page_request_var}}={{i}}">{{i}}</a>
+		    </li>
+		    {% else %}
+		    <li class="page-item">
+		      <a class="page-link" href="?{{ page_request_var}}={{i}}">{{i}}</a>
+		    </li>
+
+		    {% endif %} {% endfor %}
+		 {% if queryset.has_next %}
+		    <li class="page-item">
+		      <a
+		        class="page-link"
+		        href="?{{ page_request_var}}={{queryset.next_page_number}}"
+		        >&raquo;</a
+		      >
+		    </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+      <!-- Blog sidebar-->
+      <div class="col-lg-3">
+        {% include 'blog/sidebar.html' %}
+        <!-- Ad-->
+        <div class="card rounded-0 border-0 mb-4">
+          <div class="card-body p-0">
+            <a class="d-block" href="#"
+              ><img class="img-fluid" src="img/banner.jpg" alt=""
+            /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

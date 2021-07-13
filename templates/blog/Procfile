@@ -1,0 +1,1 @@
+web: gunicorn reverence.wsgi --log-file -

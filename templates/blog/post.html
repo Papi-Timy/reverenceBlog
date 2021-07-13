@@ -1,0 +1,317 @@
+{% extends 'blog/base.html' %} {% load static %} {% block content %}
+<section class="py-5">
+  <div class="container py-4">
+    <div class="row ">
+
+      <div class="col-lg-8 mx-auto">
+        {% for cat in post.categories.all %}
+        <a class="category-link mb-3 d-inline-block" href="#">{{cat}}</a>
+        {% endfor %}
+        <h1>{{post.title}}</h1>
+        <p>{{post.overview|safe|truncatewords:'10'}}</p>
+        <ul class="list-inline mb-5">
+          <li class="list-inline-item mx-2">
+            <a class="text-uppercase text-muted reset-anchor" href="#"
+              >{{post.author.user.username}}</a
+            >
+          </li>
+          <li class="list-inline-item mx-2">
+            <a class="text-uppercase text-muted reset-anchor" href="#"
+              >{{post.timestamp|timesince}}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div>
+        <a class="btn btn-primary" href="{% url 'blog_app:post-update' id=post.id %}">Update</a>
+         <a class="btn btn-danger" href="{% url 'blog_app:post-delete' id=post.id %}">delete</a>
+    </div
+    <div class="row">
+      <div class="col-lg-9">
+        <img class="w-100 mb-5" src="{% static 'img/banner.jpg'%}" alt="Post" />
+        <p class="lead drop-caps mb-5">{{post.overview}}</p>
+
+        <div class="post-body">{{post.content|safe}}</div>
+
+        <blockquote class="blockquote bg-light p-4 p-lg-5 text-center mb-5">
+          <p class="h4 mb-4">
+            Design is the fundamental soul of a human-made creation that ends up
+            expressing itself in successive outer layers of the product or
+            service.
+          </p>
+          <footer class="blockquote-footer">
+            <cite title="Source Title">Steve Jobs</cite>
+          </footer>
+        </blockquote>
+
+        <!-- Post tags-->
+        <div
+          class="d-flex align-items-center flex-column flex-sm-row mb-4 p-4 bg-light"
+        >
+          <h3 class="h4 mb-3 mb-sm-0">Tags</h3>
+          <ul class="list-inline mb-0 ml-0 ml-sm-3">
+            {% for cat in categories %}
+            <li class="list-inline-item my-1 mr-2">
+              <a class="sidebar-tag-link" href="#">{{cat}}</a>
+            </li>
+
+            {% endfor %}
+          </ul>
+        </div>
+        <!-- Post share-->
+        <div
+          class="d-flex align-items-center flex-column flex-sm-row mb-5 p-4 bg-light"
+        >
+          <h3 class="h4 mb-3 mb-sm-0">Share this post</h3>
+          <ul class="list-inline mb-0 ml-0 ml-sm-3">
+            <li class="list-inline-item mr-1 my-1">
+              <a class="social-link-share facebook" href="#"
+                ><i class="fab fa-facebook-f mr-2"></i>Share</a
+              >
+            </li>
+            <li class="list-inline-item mr-1 my-1">
+              <a class="social-link-share twitter" href="#"
+                ><i class="fab fa-twitter mr-2"></i>Tweet</a
+              >
+            </li>
+            <li class="list-inline-item mr-1 my-1">
+              <a class="social-link-share instagram" href="#"
+                ><i class="fab fa-instagram mr-2"></i>Share</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- Leave comment-->
+        <h3 class="h4 mb-4">Leave a comment</h3>
+        {% if request.user.is_authenticated %}
+        <form method="POST" class="mb-5" action=".">
+          {% csrf_token %}
+          <div class="row">t">
+                Submit your comment
+              </button>adipit">
+                Submit your comment
+              </button>adipi
+              <a href="#" class="btn btn-primary" type="submit">
+                Login to Comment
+              </a>adipi
+            </div>
+            </form>
+
+        {% endif %}
+
+        <!-- Post comments-->
+        <h3 class="h4 mb-4">Comments</h3>
+        {% for comment in post.get_comments %}
+        <ul class="list-unstyled comments">
+          <li>
+            <div class="media mb-4">
+              {% if comment.user.author %}
+              <img
+                class="rounded-circle shadow-sm img-fluid"
+                src="{{comment.user.author.thumbnail.url}}"
+                alt=""
+                width="60"
+              />
+              {% else %}
+              <img
+                class="rounded-circle shadow-sm img-fluid"
+                src="{% static 'img/profile.png' %}"
+                alt=""
+                width="60"
+              />
+
+              {% endif %}
+
+              <div class="media-body ml-3">
+                <p class="small mb-0 text-primary">
+                  {{comment.timestamp|timesince}}
+                </p>
+                <h5>{{comment.user.username}}</h5>
+                <p class="text-muted text-small mb-2">{{comment.comment}}</p>
+                <a class="reset-anchor text-small" href="#"
+                  ><i class="fas fa-share mr-2 text-primary"></i
+                  ><strong>Reply</strong></a
+                >
+              </div>
+            </div>
+          </li>
+        </ul>
+        {% endfor %}
+      </div>
+
+
+
+
+
+      
+      <!-- Blog sidebar-->
+      <div class="col-lg-3">
+        <!-- About category-->
+        <div class="card rounded-0 border-0 bg-light mb-4 py-lg-4">
+          <div class="card-body text-center">
+            <h2 class="h3 mb-3">About me</h2>
+            <img
+              class="rounded-circle mb-3"
+              src="img/author-1.jpg"
+              alt="..."
+              width="100"
+            />
+            <p class="text-small text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt.
+            </p>
+            <ul class="list-inline small mb-0 text-dark">
+              <li class="list-inline-item">
+                <a class="reset-anchor" href="#"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a class="reset-anchor" href="#"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a class="reset-anchor" href="#"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a class="reset-anchor" href="#"
+                  ><i class="fab fa-linkedin"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a class="reset-anchor" href="#"
+                  ><i class="fab fa-youtube"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Recent posts-->
+        <div class="card rounded-0 border-0 mb-4">
+          <div class="card-body p-0">
+            <h2 class="h5 mb-3">Recent posts</h2>
+            <div class="media mb-3">
+              <a class="d-block" href="post.html"
+                ><img
+                  class="img-fluid"
+                  src="img/recent-post-1.jpg"
+                  alt=""
+                  width="70"
+              /></a>
+              <div class="media-body ml-3">
+                <h6>
+                  <a class="reset-anchor" href="post.html">Crazy goodness</a>
+                </h6>
+                <p class="text-small text-muted line-height-sm mb-0">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
+            <div class="media mb-3">
+              <a class="d-block" href="post.html"
+                ><img
+                  class="img-fluid"
+                  src="img/recent-post-2.jpg"
+                  alt=""
+                  width="70"
+              /></a>
+              <div class="media-body ml-3">
+                <h6>
+                  <a class="reset-anchor" href="post.html">Black hat</a>
+                </h6>
+                <p class="text-small text-muted line-height-sm mb-0">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
+            <div class="media mb-3">
+              <a class="d-block" href="post.html"
+                ><img
+                  class="img-fluid"
+                  src="img/recent-post-3.jpg"
+                  alt=""
+                  width="70"
+              /></a>
+              <div class="media-body ml-3">
+                <h6>
+                  <a class="reset-anchor" href="post.html"
+                    >My office makeover</a
+                  >
+                </h6>
+                <p class="text-small text-muted line-height-sm mb-0">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Categories-->
+        <div class="card rounded-0 border-0 mb-4">
+          <div class="card-body p-0">
+            <h2 class="h5 mb-3">Trending categories</h2>
+            <a
+              class="category-block category-block-sm bg-center bg-cover mb-2"
+              style="background: url(img/category-bg-1.jpg)"
+              href="#"
+              ><span class="category-block-title">Interior Design</span></a
+            ><a
+              class="category-block category-block-sm bg-center bg-cover mb-2"
+              style="background: url(img/category-bg-2.jpg)"
+              href="#"
+              ><span class="category-block-title">Fashion</span></a
+            ><a
+              class="category-block category-block-sm bg-center bg-cover mb-2"
+              style="background: url(img/category-bg-3.jpg)"
+              href="#"
+              ><span class="category-block-title">Tips &amp; Tricks</span></a
+            >
+          </div>
+        </div>
+        <!-- Tags-->
+        <div class="card rounded-0 border-0 mb-4">
+          <div class="card-body p-0">
+            <h2 class="h5 mb-3">Tags cloud</h2>
+            <ul class="list-inline">
+              <li class="list-inline-item my-1 mr-2">
+                <a class="sidebar-tag-link" href="#">Art</a>
+              </li>
+              <li class="list-inline-item my-1 mr-2">
+                <a class="sidebar-tag-link" href="#">Events</a>
+              </li>
+              <li class="list-inline-item my-1 mr-2">
+                <a class="sidebar-tag-link" href="#">Make up</a>
+              </li>
+              <li class="list-inline-item my-1 mr-2">
+                <a class="sidebar-tag-link" href="#">Design</a>
+              </li>
+              <li class="list-inline-item my-1 mr-2">
+                <a class="sidebar-tag-link" href="#">Fashion</a>
+              </li>
+              <li class="list-inline-item my-1 mr-2">
+                <a class="sidebar-tag-link" href="#">Inspiration</a>
+              </li>
+              <li class="list-inline-item my-1 mr-2">
+                <a class="sidebar-tag-link" href="#">Business</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Ad-->
+        <div class="card rounded-0 border-0 mb-4">
+          <div class="card-body p-0">
+            <a class="d-block" href="#"
+              ><img class="img-fluid" src="img/banner.jpg" alt=""
+            /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

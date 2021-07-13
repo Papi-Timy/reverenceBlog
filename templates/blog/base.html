@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta
+      name="description"
+      content="Reverence is  a lively and
+      thought-provoking blog focused on dissecting the word of God, acts of
+      charity and pure worship."
+    />
+    <meta
+      name="keywords"
+      content="Reverence, , hope,Christianity,Romans 12 v 12,Philippians 1 v 21-22,inspiration,worship,blog,testimony,"
+    />
+    <meta name="author" content="Vanessa Banda-Chidhumo" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="all,follow" />
+    <title>{% block head_title %}{% endblock %}</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href=" {% static 'img/favicon/apple-touch-icon.png' %}  "
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'img/favicon/favicon-32x32.png' %} "
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'img/favicon/favicon-16x16.png' %}  "
+    />
+    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest' %} " />
+    {% include 'blog/stylesheet.html' %}
+  </head>
+  <body>
+    {% include 'blog/nav.html'%} {% block content %} {% endblock content %} {% include 'blog/footer.html' %} {% include 'blog/scripts.html' %}
+  </body>
+</html>

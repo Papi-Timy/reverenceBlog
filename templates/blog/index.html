@@ -1,0 +1,224 @@
+{% extends 'blog/base.html' %} {% load static %}  {% load i18n %} 
+{% block head_title %}{% trans "Reverence Personal Blog" %}{% endblock %} {% block content %}
+
+<!-- Main post-->
+<section class="bg-white pb-5">
+  <div class="container-fluid px-0 pnb-4">
+    <div class="row align-items-center">
+      <div class="col-lg-12">
+        <div class="post-thumnail">
+          <img
+            class="img-fluid w-100"
+            src=" {% static 'img/home-bg.jpg' %}   "
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="col-lg-6 mx-auto text-center">
+        <ul class="list-inline">
+          <li class="list-inline-item mr-3">
+            <a class="category-link font-weight-normal" href="#"
+              >{{first_post.categories}}</a
+            >
+          </li>
+          <li class="list-inline-item mx-3">
+            <a class="text-uppercase meta-link font-weight-normal" href="#"
+              >{{first_post.author}}</a
+            >
+          </li>
+          <li class="list-inline-item mx-3">
+            <a class="text-uppercase meta-link font-weight-normal" href="#"
+              >{{first.timestamp|date:"d M Y"}}</a
+            >
+          </li>
+        </ul>
+        <h1 class="mb-4">
+          <a class="reset-anchor" href="{{first_post.get_absolute_url}}"
+            >{{first_post.title}}</a
+          >
+        </h1>
+        <p class="text-muted">{{first_post.description|truncatewords:30}}</p>
+        <a
+          class="btn btn-link p-0 read-more-btn"
+          href="{{first_post.get_absolute_url}}"
+          ><span>Read more</span><i class="fas fa-long-arrow-alt-right"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Top categories-->
+<section class="pb-5">
+  <div class="container pb-4">
+    <div class="row mb-5 pb-4">
+      {% for cat in category.all|slice:'0:3' %}
+
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <a
+          class="category-block bg-center bg-cover"
+          style="background: url({{cat.image.url}})"
+          href="{{cat.get_absolute_url}}"
+          ><span class="category-block-title">{{cat.title}}</span></a
+        >
+      </div>
+      {% endfor %}
+    </div>
+    <!-- Newsletter-->
+    <div class="p-4 bg-light">
+      <div class="row align-items-center p-lg-3">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h2 class="h3 mb-1">Subscribe to my newsletter</h2>
+          <p class="mb-0 text-small">
+            Signup for our weekly newletter to get the latest news, updates and
+            amazing offers delivered directly in your inbox.
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <form method="POST" action=".">
+            {% csrf_token %}
+            <div class="input-group">
+              <input
+                class="form-control"
+                type="search"
+                name="email"
+                placeholder="Enter your email address"
+                aria-label="email address"
+                aria-describedby="button-addon2"
+              />
+              <div class="input-group-append ml-2">
+                <button
+                  class="btn btn-primary"
+                  id="button-addon2"
+                  type="submit"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Home listing-->
+<section class="pb-5">
+  <div class="container pb-4">
+    <div class="row">
+      <div class="col-lg-9 mb-5 mb-lg-0">
+        {% for post in queryset %}
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-6">
+            <a
+              class="d-block post-trending mb-4"
+              href="{{post.get_absolute_url}}"
+              ><img
+                class="img-fluid w-100"
+                src="{{post.thumbnail.url}}"
+                alt="POST"
+            /></a>
+          </div>
+          <div class="col-lg-6">
+            <ul class="list-inline">
+              <li class="list-inline-item mr-2">
+                <a
+                  class="category-link font-weight-normal"
+                  href="{{post.categories.get_absolute_url}}"
+                  >{{post.categories}}</a
+                >
+              </li>
+              <li class="list-inline-item mx-2">
+                <a class="text-uppercase meta-link font-weight-normal" href="#"
+                  >{{post.author}}</a
+                >
+              </li>
+              <li class="list-inline-item mx-2">
+                <a
+                  class="text-uppercase meta-link font-weight-normal"
+                  href="{{post.get_absolute_url}}"
+                  >{{post.timestamp|date:"d M Y"}}</a
+                >
+              </li>
+            </ul>
+            <h2 class="h3 mb-4">
+              <a class="d-block reset-anchor" href="{{post.get_absolute_url}}"
+                >{{post.title}}</a
+              >
+            </h2>
+            <p class="text-muted">{{post.description|truncatewords:30}}</p>
+            <a
+              class="btn btn-link p-0 read-more-btn"
+              href="{{post.get_absolute_url}}"
+              ><span>Read more</span><i class="fas fa-long-arrow-alt-right"></i
+            ></a>
+          </div>
+        </div>
+        {% endfor %}
+
+        <blockquote
+          class="blockquote bg-dark text-white p-4 p-lg-5 text-center mb-5"
+        >
+          <p class="h4 mb-4">{{qoutes.content}}</p>
+          <footer class="blockquote-footer">
+            <cite class="text-white" title="Source Title"
+              >{{qoutes.author}}</cite
+            >
+          </footer>
+        </blockquote>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            {% if queryset.has_previous %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="?{{ page_request_var}}={{queryset.previous_page_number}}"
+                >&laquo;</a
+              >
+            </li>
+            {% endif %}
+
+	 {% for i in paginator.page_range %}
+
+ 		{% if queryset.number == i %}
+		    <li class="page-item active">
+		      <a class="page-link" href="?{{ page_request_var}}={{i}}">{{i}}</a>
+		    </li>
+		    {% else %}
+		    <li class="page-item">
+		      <a class="page-link" href="?{{ page_request_var}}={{i}}">{{i}}</a>
+		    </li>
+
+		    {% endif %} 
+	{% endfor %}
+	 {% if queryset.has_next %}
+            <li class="page-item">
+              <a
+                class="page-link"
+                href="?{{ page_request_var}}={{queryset.next_page_number}}"
+                >&raquo;</a
+              >
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+      <!-- Blog sidebar-->
+      <div class="col-lg-3">
+        {% include 'blog/sidebar.html' with cat_trend=cat_trend latest=latest_post %}
+        <!-- Ad-->
+        <div class="card rounded-0 border-0 mb-4">
+          <div class="card-body p-0">
+            <a class="d-block" href="#"
+              ><img
+                class="img-fluid"
+                src="/static/img/banner/banner-02.jpg"
+                alt=""
+            /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

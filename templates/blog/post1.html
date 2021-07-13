@@ -1,0 +1,144 @@
+{% extends 'blog/base.html' %} {% load static %} {% load social_share%}
+ {% load i18n %} 
+{% block head_title %}{% trans "Reverence | Post" %}{% endblock %}  {% block content %}
+<style>
+  .img-post {
+    width: 100%;
+
+    margin: 15px;
+  }
+</style>
+<section class="py-5">
+  <div class="container py-4">
+    <div class="row text-center">
+      <div class="col-lg-8 mx-auto">
+        <a class="category-link mb-3 d-inline-block" href="#"
+          >{{post.categories}}</a
+        >
+        <h1>{{post.title}}</h1>
+        <p>{{post.description}}</p>
+        <ul class="list-inline mb-5">
+          <li class="list-inline-item mx-2">
+            <a class="text-uppercase text-muted reset-anchor" href="#"
+              >BY {{post.author.user.username}}</a
+            >
+          </li>
+          <li class="list-inline-item mx-2">
+            <a class="text-uppercase text-muted reset-anchor" href="#"
+              >{{post.timestamp|date:"d M Y"}}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <img class="img-post" src="{{post.thumbnail.url}}" alt="..." />
+    <div class="row">
+      <div class="col-lg-9">
+        <p class="lead drop-caps mb-5">{{post.content|safe}}</p>
+
+        <blockquote class="blockquote bg-light p-4 p-lg-5 text-center mb-5">
+          <p class="h4 mb-4">{{qoutes.content}}</p>
+          <footer class="blockquote-footer">
+            <cite title="Source Title">{{qoutes.author}}</cite>
+          </footer>
+        </blockquote>
+
+        <!-- Post tags-->
+
+        <!-- Post share-->
+        <div
+          class="
+            d-flex
+            align-items-center
+            flex-column flex-sm-row
+            mb-5
+            p-4
+            bg-light
+          "
+        >
+          <h3 class="h4 mb-3 mb-sm-0">Share this post</h3>
+
+          <ul class="list-inline mb-0 ml-0 ml-sm-3">
+            <li class="list-inline-item mr-1 my-1">
+              <a class="social-link-share facebook" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}"
+                ><i class="fab fa-facebook-f mr-2"></i>Share</a
+              >
+            </li>
+
+            <li class="list-inline-item mr-1 my-1">
+             {% post_to_twitter " {{post.title}}. Check it out!" object_or_url "Post to Twitter" %}
+            </li>
+		
+            <li class="list-inline-item mr-1 my-1">
+              
+		{% post_to_gplus object_or_url "{{post.title}}" %}
+            </li>
+		<li class="list-inline-item mr-1 my-1">
+			{% post_to_whatsapp object_or_url "{{post.title}}" %}
+		</li>
+          </ul>
+        </div>
+        <!-- Leave comment-->
+        <div id="reply">
+          <h3 class="h4 mb-4">Leave a comment</h3>
+          <form method="POST" class="mb-5" action=".">
+            {% csrf_token %}
+            <div class="row">
+              <div class="form-group col-lg-6">{{form.name}}</div>
+              <div class="form-group col-lg-6">{{form.email}}</div>
+              <div class="form-group col-lg-12">{{form.comment}}</div>
+              <div class="form-group col-lg-12">
+                <button class="btn btn-primary" type="submit">
+                  Submit your comment
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- Post comments-->
+        <h3 class="h4 mb-4">Comments({{post.comments.count}})</h3>
+        <ul class="list-unstyled comments">
+          {% for comment in post.comments.all %}
+          <li>
+            <div class="media mb-4">
+              <img
+                class="rounded-circle shadow-sm img-fluid"
+                src="/static/img/author-1.jpg"
+                alt=""
+                width="60"
+              />
+              <div class="media-body ml-3">
+                <p class="small mb-0 text-primary">
+                  {{comment.timestamp|timesince}}
+                </p>
+                <h5>{{comment.name}}</h5>
+                <p class="text-muted text-small mb-2">{{comment.comment}}</p>
+                <a class="reset-anchor text-small" href="#reply"
+                  ><i class="fas fa-share mr-2 text-primary"></i
+                  ><strong>Reply</strong></a
+                >
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <!-- Blog sidebar-->
+      <div class="col-lg-3">
+        {% include 'blog/sidebar.html' %}
+        <!-- Ad-->
+        <div class="card rounded-0 border-0 mb-4">
+          <div class="card-body p-0">
+            <a class="d-block" href="#"
+              ><img
+                class="img-fluid"
+                src="/static/img/banner/banner-02.jpg"
+                alt=""
+            /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

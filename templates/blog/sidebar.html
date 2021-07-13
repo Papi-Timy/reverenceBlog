@@ -1,0 +1,160 @@
+{% load static %}
+<style>
+  .widget.search {
+    margin-bottom: 30px;
+  }
+  .widget.search .form-group {
+    position: relative;
+  }
+
+  .widget.search input {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95em;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    background: none;
+  }
+
+  .widget.search input::-moz-placeholder {
+    color: #aaa;
+    font-family: "Open Sans", sans-serif;
+  }
+
+  .widget.search input::-webkit-input-placeholder {
+    color: #aaa;
+    font-family: "Open Sans", sans-serif;
+  }
+
+  .widget.search input:-ms-input-placeholder {
+    color: #aaa;
+    font-family: "Open Sans", sans-serif;
+  }
+
+  .widget.search .submit {
+    height: 40px;
+    padding: 0;
+    line-height: 40px;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 0.9em;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+</style>
+<!-- About category-->
+<div class="card rounded-0 border-0 bg-light mb-4 py-lg-4">
+  <div class="card-body text-center">
+    <h2 class="h3 mb-3">About me</h2>
+    <img
+      class="rounded-circle mb-3"
+      src="{% static 'img/van/third.jpg' %}  "
+      alt="..."
+      width="100"
+    />
+    <p class="text-small text-muted">
+      My name is Vanessa Banda-Chidhumo. Welcome to Reverence, a lively and
+      thought-provoking blog focused on dissecting the word of God, acts of
+      charity and pure worship.
+    </p>
+    <ul class="list-inline small mb-0 text-dark">
+      <li class="list-inline-item">
+        <a class="reset-anchor" href="#"><i class="fab fa-facebook-f"></i></a>
+      </li>
+      <li class="list-inline-item">
+        <a class="reset-anchor" href="https://www.facebook.com/vanessa.banda.92"
+          ><i class="fab fa-twitter"></i
+        ></a>
+      </li>
+      <li class="list-inline-item">
+        <a class="reset-anchor" href="https://www.instagram.com/van_chid/"
+          ><i class="fab fa-instagram"></i
+        ></a>
+      </li>
+      <li class="list-inline-item">
+        <a class="reset-anchor" href="#"><i class="fab fa-linkedin"></i></a>
+      </li>
+      <li class="list-inline-item">
+        <a class="reset-anchor" href="#"><i class="fab fa-youtube"></i></a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="widget search">
+  <header>
+    <h2 class="h5 mb-3">Search Blog</h2>
+  </header>
+  <form action="{% url 'blog_app:search' %}" class="search-form">
+    <div class="form-group">
+      <input type="text" name="q" placeholder="What are you looking for?" />
+      <button type="submit" class="submit">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+    </div>
+  </form>
+</div>
+<!-- Recent posts-->
+
+<div class="card rounded-0 border-0 mb-4">
+  <a href="{{latest.get_absolute_url}}">
+    <div class="card-body p-0">
+      <h2 class="h5 mb-3">Recent posts</h2>
+      {% for latest in latest_post %}
+      <div class="media mb-3">
+        <a class="d-block" href="{{latest.get_absolute_url}}"
+          ><img
+            class="img-fluid"
+            src="{{latest.thumbnail.url}}  "
+            alt=""
+            width="70"
+        /></a>
+        <div class="media-body ml-3">
+          <h6>
+            <a class="reset-anchor" href="{{latest.get_absolute_url}}"
+              >{{latest.title}}</a
+            >
+          </h6>
+          <p class="text-small text-muted line-height-sm mb-0">
+            {{latest.description|truncatewords:'5' }}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </a>
+</div>
+<!-- Categories-->
+<div class="card rounded-0 border-0 mb-4">
+  <div class="card-body p-0">
+    <h2 class="h5 mb-3">Trending categories</h2>
+    {% for cat in cat_trend.all|slice:'0:3' %}
+    <a
+      class="category-block category-block-sm bg-center bg-cover mb-2"
+      style="background: url({{cat.image.url}})"
+      href="{{cat.get_absolute_url}}"
+      ><span class="category-block-title">{{cat.title}}</span></a
+    >
+
+    {% endfor %}
+  </div>
+</div>
+<!-- Tags-->
+<div class="card rounded-0 border-0 mb-4">
+  <div class="card-body p-0">
+    <h2 class="h5 mb-3">Tags cloud</h2>
+
+    <ul class="list-inline">
+      {% for cat in category.all %}
+      <li class="list-inline-item my-1 mr-2">
+        <a class="sidebar-tag-link" href="{{cat.get_absolute_url}}">{{cat}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

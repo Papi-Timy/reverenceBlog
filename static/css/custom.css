@@ -1,0 +1,271 @@
+/* your styles go here */
+
+#navbarSupportedContent .navbar .search-area {
+    display: none;
+    z-index: 9999;
+}
+
+#navbarSupportedContent .search-area-inner {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.99);
+    padding: 20px !important;
+}
+
+#navbarSupportedContent .search-area-inner .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#navbarSupportedContent .search-area-inner .row {
+    width: 100%;
+}
+
+#navbarSupportedContent .search-area-inner .form-group {
+    position: relative;
+}
+
+#navbarSupportedContent .search-area-inner .submit {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 10px;
+    bottom: 15px;
+}
+
+#navbarSupportedContent .search-area-inner input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: none;
+    padding: 10px 0;
+    font-size: 1.6em;
+    font-weight: 300;
+    font-family: "Open Sans", sans-serif;
+}
+
+#navbarSupportedContent .search-area-inner input::-moz-placeholder {
+    font-family: "Open Sans", sans-serif;
+    color: #555;
+    font-weight: 300;
+    font-size: 1.1em;
+}
+
+#navbarSupportedContent .search-area-inner input::-webkit-input-placeholder {
+    font-family: "Open Sans", sans-serif;
+    color: #555;
+    font-weight: 300;
+    font-size: 1.1em;
+}
+
+#navbarSupportedContent .search-area-inner input:-ms-input-placeholder {
+    font-family: "Open Sans", sans-serif;
+    color: #555;
+    font-weight: 300;
+    font-size: 1.1em;
+}
+
+/*---------------------
+  Contact
+-----------------------*/
+
+.contact {
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+
+.contact__widget {
+    margin-bottom: 30px;
+}
+
+.contact__widget span {
+    font-size: 36px;
+    color: #7fad39;
+}
+
+.contact__widget h4 {
+    color: #1c1c1c;
+    font-weight: 700;
+    margin-bottom: 6px;
+    margin-top: 18px;
+}
+
+.contact__widget p {
+    color: #666666;
+    margin-bottom: 0;
+}
+
+/*---------------------
+  Map
+-----------------------*/
+
+.map {
+    height: 500px;
+    position: relative;
+}
+
+.map iframe {
+    width: 100%;
+}
+
+.map .map-inside {
+    position: absolute;
+    left: 50%;
+    top: 160px;
+    -webkit-transform: translateX(-175px);
+    -ms-transform: translateX(-175px);
+    transform: translateX(-175px);
+}
+
+.map .map-inside i {
+    font-size: 48px;
+    color: #7fad39;
+    position: absolute;
+    bottom: -75px;
+    left: 50%;
+    -webkit-transform: translateX(-18px);
+    -ms-transform: translateX(-18px);
+    transform: translateX(-18px);
+}
+
+.map .map-inside .inside-widget {
+    width: 350px;
+    background: #ffffff;
+    text-align: center;
+    padding: 23px 0;
+    position: relative;
+    z-index: 1;
+    -webkit-box-shadow: 0 0 20px 5px rgba(12, 7, 26, 0.15);
+    box-shadow: 0 0 20px 5px rgba(12, 7, 26, 0.15);
+}
+
+.map .map-inside .inside-widget:after {
+    position: absolute;
+    left: 50%;
+    bottom: -30px;
+    -webkit-transform: translateX(-6px);
+    -ms-transform: translateX(-6px);
+    transform: translateX(-6px);
+    border: 12px solid transparent;
+    border-top: 30px solid #ffffff;
+    content: "";
+    z-index: -1;
+}
+
+.map .map-inside .inside-widget h4 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1c1c1c;
+    margin-bottom: 4px;
+}
+
+.map .map-inside .inside-widget ul li {
+    list-style: none;
+    font-size: 16px;
+    color: #666666;
+    line-height: 26px;
+}
+
+/*---------------------
+  Contact Form
+-----------------------*/
+
+.contact__form__title {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.contact__form__title h2 {
+    color: #1c1c1c;
+    font-weight: 700;
+}
+
+.contact-form {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.contact-form form input {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    color: #6f6f6f;
+    padding-left: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+}
+
+.contact-form form input::placeholder {
+    color: #6f6f6f;
+}
+
+.contact-form form textarea {
+    width: 100%;
+    height: 150px;
+    font-size: 16px;
+    color: #6f6f6f;
+    padding-left: 20px;
+    margin-bottom: 24px;
+    border: 1px solid #ebebeb;
+    border-radius: 4px;
+    padding-top: 12px;
+    resize: none;
+}
+
+.contact-form form textarea::placeholder {
+    color: #6f6f6f;
+}
+
+.contact-form form button {
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.widget.search .form-group {
+    position: relative;
+}
+
+.widget.search input {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95em;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    background: none;
+}
+
+.widget.search input::-moz-placeholder {
+    color: #aaa;
+    font-family: "Open Sans", sans-serif;
+}
+
+.widget.search input::-webkit-input-placeholder {
+    color: #aaa;
+    font-family: "Open Sans", sans-serif;
+}
+
+.widget.search input:-ms-input-placeholder {
+    color: #aaa;
+    font-family: "Open Sans", sans-serif;
+}
+
+.widget.search .submit {
+    height: 40px;
+    padding: 0;
+    line-height: 40px;
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 0.9em;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
